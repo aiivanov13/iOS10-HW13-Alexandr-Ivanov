@@ -89,7 +89,10 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        44
+        if options?[indexPath.section][indexPath.row].name == "Конфиденциальность и безопасность" {
+            return 54
+        }
+        return 44
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
