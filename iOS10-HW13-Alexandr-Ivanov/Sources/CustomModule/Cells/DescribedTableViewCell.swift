@@ -8,7 +8,6 @@
 import UIKit
 
 class DescribedTableViewCell: GeneralTableViewCell {
-
     override var option: Option? {
         didSet {
             switch option?.optionType {
