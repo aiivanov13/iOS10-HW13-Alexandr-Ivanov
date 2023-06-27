@@ -13,9 +13,9 @@ class SwitchedTableViewCell: GeneralTableViewCell {
     // MARK: - Outlets
 
     private let switcher: UISwitch = {
-        let cellSwitch = UISwitch()
-        cellSwitch.addTarget(.none, action: #selector(switcherValueChanged), for: .valueChanged)
-        return cellSwitch
+        let switcher = UISwitch()
+        switcher.addTarget(.none, action: #selector(switcherValueChanged), for: .valueChanged)
+        return switcher
     }()
 
     // MARK: - Initializers
@@ -38,6 +38,6 @@ class SwitchedTableViewCell: GeneralTableViewCell {
     // MARK: - Actions
 
     @objc private func switcherValueChanged() {
-        print("Switch был переключен в ячейке \(option?.name ?? "")")
+        print("Switch был переключен на значение \(switcher.isOn) в ячейке \(option?.name ?? "")")
     }
 }

@@ -48,10 +48,10 @@ extension Option {
          Option(image: UIImage(systemName: "dock.rectangle") ?? UIImage(), name: "Экран «‎Домой»‎", iconBackgroundColor: .systemBlue, optionType: .general),
          Option(image: UIImage(named: "accessibility")?.withTintColor(.white) ?? UIImage(), name: "Универсальный доступ", iconBackgroundColor: .systemBlue, optionType: .general),
          Option(image: UIImage(named: "wallpaper")?.withTintColor(.white) ?? UIImage(), name: "Обои", iconBackgroundColor: .systemCyan, optionType: .general),
-         Option(image: UIImage(named: "siri") ?? UIImage(), name: "Siri и Поиск", iconBackgroundColor: .systemFill, optionType: .general),
+         Option(image: UIImage(named: "siri") ?? UIImage(), name: "Siri и Поиск", iconBackgroundColor: UIColor(red: 0.00, green: 0.12, blue: 0.20, alpha: 1.00), optionType: .general),
          Option(image: UIImage(systemName: "faceid") ?? UIImage(), name: "Face ID и код-пароль", iconBackgroundColor: .systemGreen, optionType: .general),
          Option(image: UIImage(systemName: "sos") ?? UIImage(), name: "Экстренный вызов — SOS", iconBackgroundColor: .systemRed, optionType: .general),
-         Option(image: UIImage(named: "virus")?.withTintColor(.red) ?? UIImage(), name: "Уведомление о контакте", iconBackgroundColor: .white, optionType: .general),
+         Option(image: UIImage(named: "virus")?.withTintColor(.red) ?? UIImage(), name: "Уведомление о контакте", iconBackgroundColor: .systemGray5, optionType: .general),
          Option(image: UIImage(systemName: "battery.100") ?? UIImage(), name: "Аккумулятор", iconBackgroundColor: .systemGreen, optionType: .general),
          Option(image: UIImage(systemName: "hand.raised.fill") ?? UIImage(), name: "Конфиденциальность и безопасность", iconBackgroundColor: .systemBlue, optionType: .general)]
     ]

@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 
 class MainViewController: UIViewController {
-
     private var options: [[Option]]?
 
     // MARK: - Outlets
@@ -37,6 +36,7 @@ class MainViewController: UIViewController {
     }
 
     // MARK: - Setup
+
     private func setupView() {
         title = "Настройки"
     }
@@ -52,6 +52,8 @@ class MainViewController: UIViewController {
     }
 }
 
+// MARK: - Delegate / DataSource
+
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         options?.count ?? 0
@@ -62,34 +64,35 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        var cell: UITableViewCell
+        let option = options?[indexPath.section][indexPath.row]
 
-        switch options?[indexPath.section][indexPath.row].optionType {
+        switch option?.optionType {
         case .general:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "general", for: indexPath) as? GeneralTableViewCell
-            cell?.option = options?[indexPath.section][indexPath.row]
-            return cell ?? UITableViewCell()
-
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "general", for: indexPath) as? GeneralTableViewCell else { return UITableViewCell() }
+            cell.option = option
+            return cell
         case .switched:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "switched", for: indexPath) as? SwitchedTableViewCell
-            cell?.option = options?[indexPath.section][indexPath.row]
-            return cell ?? UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "switched", for: indexPath) as? SwitchedTableViewCell else { return UITableViewCell() }
+            cell.option = option
+            return cell
         case .notificated:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "notificated", for: indexPath) as? NotificatedTableViewCell
-            cell?.option = options?[indexPath.section][indexPath.row]
-            return cell ?? UITableViewCell()
-
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "notificated", for: indexPath) as? NotificatedTableViewCell else { return UITableViewCell() }
+            cell.option = option
+            return cell
         case .described:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "described", for: indexPath) as? DescribedTableViewCell
-            cell?.option = options?[indexPath.section][indexPath.row]
-            return cell ?? UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "described", for: indexPath) as? DescribedTableViewCell else { return UITableViewCell() }
+            cell.option = option
+            return cell
         default:
             return UITableViewCell()
         }
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        44
+        if options?[indexPath.section][indexPath.row].name == "Конфиденциальность и безопасность" {
+            return 54
+        }
+        return 44
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
