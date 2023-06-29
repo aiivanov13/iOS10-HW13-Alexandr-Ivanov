@@ -14,7 +14,7 @@ class MainViewController: UIViewController {
     // MARK: - Outlets
 
     private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.register(GeneralTableViewCell.self, forCellReuseIdentifier: "general")
         tableView.register(SwitchedTableViewCell.self, forCellReuseIdentifier: "switched")
         tableView.register(NotificatedTableViewCell.self, forCellReuseIdentifier: "notificated")
@@ -39,6 +39,7 @@ class MainViewController: UIViewController {
 
     private func setupView() {
         title = "Настройки"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     private func setupHierarchy() {
@@ -46,15 +47,13 @@ class MainViewController: UIViewController {
     }
 
     private func setupLayout() {
-        tableView.snp.makeConstraints { make in
-            make.top.right.bottom.left.equalTo(view)
-        }
+        tableView.snp.makeConstraints { $0.top.right.bottom.left.equalTo(view) }
     }
 }
 
-// MARK: - Delegate / DataSource
+// MARK: - UITableViewDataSource
 
-extension MainViewController: UITableViewDataSource, UITableViewDelegate {
+extension MainViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         options?.count ?? 0
     }
@@ -87,7 +86,11 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
     }
+}
 
+// MARK: - UITableViewDelegate
+
+extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if options?[indexPath.section][indexPath.row].name == "Конфиденциальность и безопасность" {
             return 54
