@@ -11,7 +11,7 @@ class DescribedTableViewCell: GeneralTableViewCell {
     override var option: Option? {
         didSet {
             switch option?.optionType {
-            case .described( let state):
+            case .described(let state):
                 describingLabel.text = state?.rawValue
             default:
                 break
