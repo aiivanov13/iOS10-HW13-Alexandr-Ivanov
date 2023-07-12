@@ -1,20 +1,18 @@
 //
-//  DetailViewController.swift
+//  DetailView.swift
 //  iOS10-HW13-Alexandr-Ivanov
 //
-//  Created by Александр Иванов on 25.06.2023.
+//  Created by Александр Иванов on 12.07.2023.
 //
 
 import UIKit
 import SnapKit
 
-class DetailViewController: UIViewController {
-
-    var option: Option?
-
+final class DetailView: UIView {
+    
     // MARK: - Outlets
 
-    private var imageView: UIImageView = {
+    var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.alpha = 0.0
         imageView.contentMode = .scaleAspectFit
@@ -23,9 +21,8 @@ class DetailViewController: UIViewController {
         return imageView
     }()
 
-    private var button: UIButton = {
+    var button: UIButton = {
         let button = UIButton(type: .system)
-        button.addTarget(.none, action: #selector(buttonTapped), for: .touchUpInside)
         button.setTitle("Show", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         button.tintColor = .white
@@ -41,7 +38,7 @@ class DetailViewController: UIViewController {
         return view
     }()
 
-    private var titleLabel: UILabel = {
+    var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 25, weight: .bold)
         label.textColor = .black
@@ -52,38 +49,37 @@ class DetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
 
-    // MARK: - Lifecycle
+    // MARK: - Initial
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupView()
+    init() {
+        super.init(frame: .zero)
+        commonInit()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+
+    private func commonInit() {
         setupHierarchy()
         setupLayout()
     }
 
     // MARK: - Setup
 
-    private func setupView() {
-        view.backgroundColor = option?.iconBackgroundColor
-        navigationController?.navigationBar.tintColor = .white
-        titleLabel.text = option?.name
-        imageView.image = option?.image
-        button.backgroundColor = option?.iconBackgroundColor
-    }
-
     private func setupHierarchy() {
-        view.addSubview(infoView)
+        addSubview(infoView)
         infoView.addSubview(button)
         infoView.addSubview(titleLabel)
-        view.addSubview(imageView)
+        addSubview(imageView)
     }
 
     private func setupLayout() {
         infoView.snp.makeConstraints { make in
-            make.left.right.bottom.equalTo(view)
-            make.top.equalTo(view.snp_centerYWithinMargins)
+            make.left.right.bottom.equalTo(self)
+            make.top.equalTo(self.snp_centerYWithinMargins)
         }
 
         button.snp.makeConstraints { make in
@@ -97,26 +93,9 @@ class DetailViewController: UIViewController {
         }
 
         imageView.snp.makeConstraints { make in
-            make.left.right.equalTo(view).inset(100)
+            make.left.right.equalTo(self).inset(100)
             make.height.equalTo(imageView.snp.width)
-            make.centerY.equalTo(view.snp_centerYWithinMargins).dividedBy(2)
-        }
-    }
-
-    // MARK: - Action
-
-    @objc private func buttonTapped() {
-        UIView.animate(withDuration: 1, delay: 0.5, options: .curveEaseInOut) {
-            switch self.button.titleLabel?.text {
-            case "Next":
-                self.titleLabel.alpha = 1
-                self.button.setTitle("Settings", for: .normal)
-            case "Settings":
-                self.navigationController?.popViewController(animated: true)
-            default:
-                self.imageView.alpha = 1
-                self.button.setTitle("Next", for: .normal)
-            }
+            make.centerY.equalTo(self.snp_centerYWithinMargins).dividedBy(2)
         }
     }
 }
