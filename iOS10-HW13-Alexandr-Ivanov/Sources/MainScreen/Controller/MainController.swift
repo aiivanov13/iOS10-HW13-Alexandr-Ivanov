@@ -9,7 +9,7 @@ import UIKit
 
 final class MainController: UIViewController {
 
-    private var model: [[Option]]? = Option.options
+    private var model: [[Option]]?
 
     private var mainView: MainView? {
         guard isViewLoaded else { return nil }
@@ -30,6 +30,7 @@ final class MainController: UIViewController {
 private extension MainController {
     func configureView() {
         view = MainView()
+        model = Option.options
         mainView?.tableView.delegate = self
         mainView?.tableView.dataSource = self
     }
